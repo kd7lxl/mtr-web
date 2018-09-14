@@ -82,7 +82,9 @@
               response[i] = [];
             }
 
-            ws = $websocket('ws://127.0.0.1:8000/mtr');
+            var url = new URL('/mtr', window.location.href);
+            url.protocol = url.protocol.replace('http', 'ws');
+            ws = $websocket(url.href);
 
             ws.onMessage(function(message) {
               var data = JSON.parse(message.data);
