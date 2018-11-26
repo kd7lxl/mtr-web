@@ -9,9 +9,11 @@ useful diagnostic tool while making changes to your own network configuration.
 
 ## Example
 
-~~http://trace.hamwan.net/~~
+http://103.68.109.131:8000/
 
 ## Installation
+https://github.com/blackjack4494/mtr-ext
+There is a compiled version of mtr in this project included.
 
 ```sh
 sudo apt-get install mtr python python-pip -y
