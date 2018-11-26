@@ -12,7 +12,9 @@ useful diagnostic tool while making changes to your own network configuration.
 http://103.68.109.131:8000/
 
 ## Installation
-https://github.com/blackjack4494/mtr-ext
+https://github.com/blackjack4494/mtr-ext  
+
+(NOTE! was built on Ubuntu18.04 - May not work everywhere!)  
 There is a compiled version of mtr in this project included.
 
 ```sh
