@@ -57,9 +57,16 @@
           <th>Loss</th>
           <th>Received</th>
           <th>Sent</th>
-          <th>Min</th>
+		  <th>Last/Cur</th>
           <th>Avg</th>
-          <th>Max</th>
+          <th>Min/Best</th>
+          <th>Max/Worst</th>
+		  <th>stdev</th>
+		  <th>gmean</th>
+		  <th>jitter</th>
+		  <th>javg</th>
+		  <th>jworst</th>
+		  <th>jinta</th>
         </tr>
         <tr ng-repeat="line in mtr.response track by $index|orderBy:'0'">
           <td ng-repeat="col in line track by $index">{{ col }}</td>
