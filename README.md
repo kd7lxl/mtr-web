@@ -9,23 +9,21 @@ useful diagnostic tool while making changes to your own network configuration.
 
 ## Example
 
-http://trace.hamwan.net/
+~~http://trace.hamwan.net/~~
 
 ## Installation
 
 ```sh
-sudo apt-get install mtr
+sudo apt-get install mtr python python-pip
 git clone https://github.com/kd7lxl/mtr-web.git
 cd mtr-web
-virtualenv env
-source env/bin/activate
 pip install Flask-Sockets gunicorn
 ```
 
 ## Usage
 
 ```sh
-gunicorn -k flask_sockets.worker mtr-web:app
+gunicorn -b 0.0.0.0 -k flask_sockets.worker mtr-web:app
 ```
 
 http://127.0.0.1:8000
