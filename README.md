@@ -15,7 +15,7 @@ useful diagnostic tool while making changes to your own network configuration.
 
 ```sh
 sudo apt-get install mtr python python-pip
-git clone https://github.com/kd7lxl/mtr-web.git
+git clone https://github.com/blackjack4494/mtr-web
 cd mtr-web
 pip install Flask-Sockets gunicorn
 ```
