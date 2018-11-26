@@ -45,7 +45,7 @@ def mtr_socket(ws):
     mtr = Popen(args, stdout=PIPE, stderr=STDOUT)
     for line in mtr.stdout:
         try:
-            data = [x if i == 1 else int(x) for (i, x) in enumerate(line.split())]
+            data = [x if i == 1 else float(x) for (i, x) in enumerate(line.split())]
             data[2] = "%.2f%%" % (data[2] / 1000.)
         except ValueError:
             # probably an error from stderr
