@@ -9,7 +9,7 @@ useful diagnostic tool while making changes to your own network configuration.
 
 ## Example
 
-Works with ipv4+6!
+Works with ipv4+6!  
 http://mtr.bambusmedia.de/ 
 
 ## Installation
