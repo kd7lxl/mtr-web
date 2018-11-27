@@ -9,7 +9,8 @@ useful diagnostic tool while making changes to your own network configuration.
 
 ## Example
 
-http://103.68.109.131:8000/
+Works with ipv4+6!
+http://mtr.bambusmedia.de/ 
 
 ## Installation
 https://github.com/blackjack4494/mtr-ext  
