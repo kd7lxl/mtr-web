@@ -25,7 +25,7 @@ cd mtr-web
 pip install Flask-Sockets gunicorn
 ```
 
-## Usage
+## Usage (client with integrated server)
 
 ```sh
 gunicorn -b 0.0.0.0 -k flask_sockets.worker mtr-web:app
@@ -63,3 +63,12 @@ gunicorn -b 0.0.0.0:8070 -k flask_sockets.worker mtr-srv:app
 
 You can now input the ip of your server with your running mtr-srv in the web client.
 Right now you need to add the port [ip]:8070 to your ip.
+
+# Run mtr-web as a 24/7 service
+
+Right now you can easily use
+```sh
+screen
+```
+
+You just need to put it infront of the commands above.
