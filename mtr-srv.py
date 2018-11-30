@@ -46,7 +46,7 @@ def mtr_socket(ws):
                 mtr.terminate()
                 print 'disconnected'
 
-if __name__ == '__main__'
+if __name__ == '__main__':
     app.run()
 
-    application = app
+application = app

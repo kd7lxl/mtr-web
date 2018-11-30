@@ -92,14 +92,14 @@
               response[i] = [];
             }
 
-            ws = $websocket(document.getElementById('wsaddr').value);
-            /*
-            var url = new URL(window.location.href);
-            url.protocol = url.protocol.replace('http', 'ws');
-            url.href = url.href + "mtr"
-            */
+            ws = $websocket('ws//' + document.getElementById('wsaddr').value);
+
+            //var url = new URL(window.location.href);
+            //url.protocol = url.protocol.replace('http', 'ws');
+            //url.href = url.href + "mtr"
+
             //ws = $websocket(url.href);
-            console.log("log: ws " + ws);
+            //console.log("log: ws " + ws);
             console.log("log: wsaddr " + document.getElementById('wsaddr').value);
 
             ws.onMessage(function(message) {
