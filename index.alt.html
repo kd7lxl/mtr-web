@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app="MtrApp">
+  <head>
+    <meta charset="utf-8" />
+    <title>Websocket-based interface to MTR</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <style type="text/css">
+    .table-very-condensed {
+      margin-bottom: 0;
+    }
+    .table-very-condensed > tbody > tr > th {
+      font-size: smaller;
+      vertical-align: middle;
+      color: #777;
+      white-space: nowrap;
+      padding: 2px 5px;
+    }
+    .table-very-condensed > tbody > tr > td {
+      padding: 2px 5px;
+    }
+    .table-very-condensed > tbody > tr > td:first-child {
+      text-align: right;
+    }
+    </style>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+    <script src="https://cdn.rawgit.com/AngularClass/angular-websocket/v2.0.0/dist/angular-websocket.min.js"></script>
+    <section ng-controller="SomeController">
+      <form class="form-inline" ng-submit="submit(hostname, protocol, version, dns)">
+      <table class="table table-very-condensed">
+        <tr>
+          <th>&nbsp;</th>
+          <th>
+            <input type='text' class="form-control" id="wsaddr" placeholder="Type websocket address here." ng-model="wsaddr" style="width:100%;">
+          </th>
+          <th>
+            <input type="text" class="form-control" id="hostname" placeholder="Type hostname here." ng-model="hostname" style="width:100%;" autofocus required>
+          </th>
+          <th colspan="6">
+            <select class="form-control" ng-model="protocol">
+              <option value="ICMP" selected>ICMP</option>
+              <option value="TCP">TCP SYN</option>
+              <option value="UDP">UDP</option>
+            </select>
+            <select class="form-control" ng-model="version">
+              <option value="" selected>IPv4 or IPv6</option>
+              <option value="4">IPv4</option>
+              <option value="6">IPv6</option>
+            </select>
+            <label class="checkbox-inline">
+              <input type="checkbox" value="dns" ng-model="dns" checked> Use DNS
+            </label>
+            <button type="submit" class="btn btn-default">Trace</button>
+          </th>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <th>Hostname</th>
+          <th>Loss</th>
+          <th>Received</th>
+          <th>Sent</th>
+		  <th>Last/Cur</th>
+          <th>Avg</th>
+          <th>Min/Best</th>
+          <th>Max/Worst</th>
+		  <th>stdev</th>
+		  <th>gmean</th>
+		  <th>jitter</th>
+		  <th>javg</th>
+		  <th>jworst</th>
+		  <th>jinta</th>
+        </tr>
+        <tr ng-repeat="line in mtr.response track by $index|orderBy:'0'">
+          <td ng-repeat="col in line track by $index">{{ col }}</td>
+        </tr>
+      </table>
+      </form>
+    </section>
+    <script>
+      angular.module('MtrApp', ['ngWebSocket'])
+      .factory('mtr', function($websocket) {
+        var response = new Array(30);
+        var ws = {close: function(message) {}};
+
+        var methods = {
+          response: response,
+          trace: function(message) {
+            ws.close();
+
+            for (var i=0; i<response.length; i++) {
+              response[i] = [];
+            }
+
+            ws = $websocket(document.getElementById('wsaddr').value);
+            /*
+            var url = new URL(window.location.href);
+            url.protocol = url.protocol.replace('http', 'ws');
+            url.href = url.href + "mtr"
+            */
+            //ws = $websocket(url.href);
+            console.log("log: ws " + ws);
+            console.log("log: wsaddr " + document.getElementById('wsaddr').value);
+
+            ws.onMessage(function(message) {
+              var data = JSON.parse(message.data);
+              if (angular.isArray(data)) {
+                response[data[0]] = data;
+              } else {
+                // error message
+                response[0] = [0, data];
+              }
+            });
+
+            ws.send(message);
+          }
+        };
+
+        return methods;
+      })
+      .controller('SomeController', function($scope, mtr) {
+        $scope.mtr = mtr;
+        $scope.protocol = 'ICMP';
+        $scope.dns = true;
+
+        $scope.submit = function(hostname, protocol, version, dns) {
+          // if (!hostname) { return; }
+          mtr.trace(JSON.stringify({
+            hostname: hostname,
+            protocol: protocol,
+            version: version,
+            no_dns: !dns
+          }));
+        };
+      });
+    </script>
+  </body>
+</html>
