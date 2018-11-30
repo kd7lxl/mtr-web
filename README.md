@@ -32,3 +32,34 @@ gunicorn -b 0.0.0.0 -k flask_sockets.worker mtr-web:app
 ```
 
 http://[your-ip]:8000
+
+## Nginx reverse proxy
+
+For easier usage set up an nginx reverse proxy
+```
+location / {
+                proxy_pass http://localhost:8000/;
+}
+```
+You can also bind it to a specific subdomain (e.g. mtr)
+
+# Separate Client and Server
+
+## Client
+
+To set up a client-only use
+```sh
+gunicorn -b 0.0.0.0 -k flask_sockets.worker mtr-client-web:app
+```
+
+You can input your websocket source (needs mtr-srv)
+
+## Server
+
+To set up a server-only use
+```
+gunicorn -b 0.0.0.0:8070 -k flask_sockets.worker mtr-srv:app
+```
+
+You can now input the ip of your server with your running mtr-srv in the web client.
+Right now you need to add the port [ip]:8070 to your ip.
