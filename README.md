@@ -14,7 +14,7 @@ http://trace.hamwan.net/
 ## Installation
 
 ```sh
-sudo apt-get install mtr
+sudo apt-get install mtr virtualenv python-pip
 git clone https://github.com/kd7lxl/mtr-web.git
 cd mtr-web
 virtualenv env
